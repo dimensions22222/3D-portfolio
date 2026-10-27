@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" style="color-scheme: light;">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Portfolio of Olu-Omodara Taiwo Ayomide, a frontend and mobile application developer and Computer Science undergraduate based in Lagos, Nigeria.">
+    <meta name="theme-color" content="#ffffff">
+    <title>Olu-Omodara Taiwo Ayomide | Frontend &amp; Mobile Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: "class" };</script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="site.css">
+    <script src="site.js" defer></script>
+    <script type="module" src="hero-3d.js"></script>
+</head>
+<body>
+    <div class="reading-progress" aria-hidden="true"><span></span></div>
+    <div class="page-transition" aria-hidden="true">
+        <svg class="transition-logo" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 10H54V20H37V54H27V20H10V10Z" fill="currentColor"/>
+            <path d="M43 36L54 47L43 58L39 54L46 47L39 40L43 36Z" fill="currentColor"/>
+        </svg>
+    </div>
+    <header class="site-header fixed top-0 left-0 right-0 z-[100] border-b border-black/10 dark:border-white/10 bg-white/90 dark:bg-black/90 backdrop-blur-md">
+        <nav class="site-nav max-w-7xl mx-auto px-4 h-16 flex items-center justify-between" aria-label="Main navigation">
+            <a class="font-black tracking-tight uppercase" href="#home">Taiwo<span class="text-neutral-400">.dev</span></a>
+            <button class="menu-toggle md:hidden p-2 border border-current rounded" type="button" aria-expanded="false" aria-controls="primary-links">Menu</button>
+            <div class="site-links flex items-center gap-6" id="primary-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#experience">Experience</a>
+                <a href="#contact">Contact</a>
+                <button class="theme-toggle border border-current rounded px-3 py-2" type="button" aria-label="Switch to dark theme">Dark mode</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero relative min-h-[92svh] flex items-center overflow-hidden bg-white text-black dark:bg-black dark:text-white">
+            <div class="lego-field" aria-hidden="true">
+                <span class="lego-brick lego-brick-red"></span>
+                <span class="lego-brick lego-brick-blue"></span>
+                <span class="lego-brick lego-brick-yellow"></span>
+                <span class="lego-brick lego-brick-orange"></span>
+                <span class="lego-brick lego-brick-white"></span>
+                <span class="lego-brick lego-brick-purple"></span>
+            </div>
+            <div class="hero-layout relative z-10 max-w-7xl w-full mx-auto px-5 py-32 md:px-10">
+                <div class="hero-copy">
+                    <h1 class="hero-title font-black uppercase tracking-[-0.08em] leading-[0.86]">
+                        <span>Olu-Omodara</span>
+                        <span class="hero-name-last">Taiwo Ayomide.</span>
+                    </h1>
+                    <p class="hero-role">Frontend and mobile application developer</p>
+                    <div class="hero-bottom mt-10 flex flex-col gap-7 md:flex-row md:items-end md:justify-between">
+                        <p class="max-w-2xl text-lg md:text-xl text-neutral-600 dark:text-neutral-300">
+                            I build responsive websites and Flutter apps, and connect them to REST APIs.
+                        </p>
+                        <a class="primary-link inline-flex items-center gap-3" href="#projects">Explore my work <span aria-hidden="true">↘</span></a>
+                    </div>
+                    <p class="hero-location mt-14 text-xs font-bold tracking-[0.2em] uppercase text-neutral-500">Lagos, Nigeria <span class="mx-3">/</span> Computer Science Undergraduate</p>
+                </div>
+                <figure class="hero-visual" aria-label="Three-dimensional books and mugs model">
+                    <div class="hero-3d-stage">
+                        <div class="hero-3d-fallback" aria-hidden="true">
+                            <span class="fallback-book fallback-book-one"></span>
+                            <span class="fallback-book fallback-book-two"></span>
+                            <span class="fallback-book fallback-book-three"></span>
+                            <span class="fallback-mug"></span>
+                        </div>
+                        <canvas class="hero-3d-canvas" aria-hidden="true"></canvas>
+                    </div>
+                    <figcaption class="hero-3d-status" aria-live="polite"></figcaption>
+                </figure>
+            </div>
+            <div class="hero-index absolute right-5 bottom-8 md:right-10" aria-hidden="true">PORTFOLIO / 01</div>
+        </section>
+
+        <section id="about" class="section-shell bg-white text-black dark:bg-black dark:text-white">
+            <div class="lego-field" aria-hidden="true">
+                <span class="lego-brick lego-brick-red"></span>
+                <span class="lego-brick lego-brick-blue"></span>
+                <span class="lego-brick lego-brick-yellow"></span>
+                <span class="lego-brick lego-brick-white"></span>
+            </div>
+            <div class="section-inner">
+                <div class="section-heading">
+                    <p class="eyebrow">01 / PROFILE</p>
+                    <h2>About me</h2>
+                </div>
+                <div class="about-layout">
+                    <div class="about-copy">
+                        <p class="text-lg md:text-2xl leading-relaxed text-neutral-700 dark:text-neutral-300">
+                            I’m <strong class="text-black dark:text-white">Olu-Omodara Taiwo Ayomide</strong>, a Computer Science undergraduate with practical experience building web interfaces and cross-platform mobile applications.
+                        </p>
+                        <p class="leading-relaxed text-neutral-600 dark:text-neutral-400">
+                            I work with HTML, CSS, JavaScript, Bootstrap, Flutter, and Dart to create responsive user experiences. I also integrate REST APIs, collaborate with backend teams, and use GitHub to deliver improvements in an agile environment.
+                        </p>
+                        <a class="text-link" href="mailto:oluomodarataiwo@gmail.com">Let’s build something together <span aria-hidden="true">↗</span></a>
+                    </div>
+                    <figure class="profile-portrait">
+                        <div class="portrait-frame">
+                            <img src="assets/profile-photo.jpeg" alt="Portrait of Olu-Omodara Taiwo Ayomide" width="433" height="577" loading="lazy" decoding="async">
+                        </div>
+                        <figcaption><span>Olu-Omodara Taiwo Ayomide</span><span>Lagos, Nigeria</span></figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section-shell bg-neutral-100 text-black dark:bg-neutral-950 dark:text-white">
+            <div class="lego-field" aria-hidden="true">
+                <span class="lego-brick lego-brick-red"></span>
+                <span class="lego-brick lego-brick-blue"></span>
+                <span class="lego-brick lego-brick-yellow"></span>
+                <span class="lego-brick lego-brick-white"></span>
+            </div>
+            <div class="section-inner">
+                <div class="section-heading">
+                    <p class="eyebrow">02 / TOOLKIT</p>
+                    <h2>Skills &amp; technologies</h2>
+                </div>
+                <div class="skills-grid">
+                    <article class="skill-card">
+                        <span class="skill-number">01</span>
+                        <h3>Web development</h3>
+                        <ul class="tag-list">
+                            <li><button class="skill-chip" type="button" data-filter-skill="html" aria-label="Show projects using HTML">HTML</button></li>
+                            <li><button class="skill-chip" type="button" data-filter-skill="css" aria-label="Show projects using CSS">CSS</button></li>
+                            <li><button class="skill-chip" type="button" data-filter-skill="javascript" aria-label="Show projects using JavaScript">JavaScript</button></li>
+                            <li><button class="skill-chip" type="button" data-filter-skill="bootstrap" aria-label="Show projects using Bootstrap">Bootstrap</button></li>
+                        </ul>
+                    </article>
+                    <article class="skill-card">
+                        <span class="skill-number">02</span>
+                        <h3>Mobile development</h3>
+                        <ul class="tag-list">
+                            <li><button class="skill-chip" type="button" data-filter-skill="flutter" aria-label="Show projects using Flutter">Flutter</button></li>
+                            <li><button class="skill-chip" type="button" data-filter-skill="dart" aria-label="Show projects using Dart">Dart</button></li>
+                            <li><button class="skill-chip" type="button" data-filter-skill="android" aria-label="Show projects using Android">Android</button></li>
+                            <li><button class="skill-chip" type="button" data-filter-skill="ios" aria-label="Show projects using iOS">iOS</button></li>
+                        </ul>
+                    </article>
+                    <article class="skill-card">
+                        <span class="skill-number">03</span>
+                        <h3>Integration &amp; collaboration</h3>
+                        <ul class="tag-list">
+                            <li><button class="skill-chip" type="button" data-filter-skill="node.js" aria-label="Show projects using Node.js">Node.js</button></li>
+                            <li><button class="skill-chip" type="button" data-filter-skill="rest-apis" aria-label="Show projects using REST APIs">REST APIs</button></li>
+                            <li><button class="skill-chip" type="button" data-filter-skill="git" aria-label="Show projects using Git">Git</button></li>
+                            <li><button class="skill-chip" type="button" data-filter-skill="github" aria-label="Show projects using GitHub">GitHub</button></li>
+                            <li><button class="skill-chip" type="button" data-filter-skill="ui-ux" aria-label="Show projects using UI/UX">UI/UX</button></li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section-shell bg-black text-white dark:bg-white dark:text-black">
+            <div class="lego-field" aria-hidden="true">
+                <span class="lego-brick lego-brick-red"></span>
+                <span class="lego-brick lego-brick-blue"></span>
+                <span class="lego-brick lego-brick-yellow"></span>
+                <span class="lego-brick lego-brick-white"></span>
+            </div>
+            <div class="section-inner">
+                <div class="section-heading">
+                    <p class="eyebrow">03 / SELECTED WORK</p>
+                    <h2>Selected projects</h2>
+                </div>
+                <div class="project-toolbar">
+                    <p class="filter-label">FILTER BY TECHNOLOGY</p>
+                    <div class="project-filters" role="group" aria-label="Filter projects by technology">
+                        <button class="filter-button is-selected" type="button" data-filter="all" aria-pressed="true">All projects</button>
+                        <button class="filter-button" type="button" data-filter="javascript" aria-pressed="false">JavaScript</button>
+                        <button class="filter-button" type="button" data-filter="bootstrap" aria-pressed="false">Bootstrap</button>
+                        <button class="filter-button" type="button" data-filter="rest-apis" aria-pressed="false">REST APIs</button>
+                        <button class="filter-button" type="button" data-filter="flutter" aria-pressed="false">Flutter</button>
+                        <button class="filter-button" type="button" data-filter="node.js" aria-pressed="false">Node.js</button>
+                    </div>
+                    <p class="filter-status" aria-live="polite"></p>
+                </div>
+                <div class="project-grid">
+                    <article class="project-card" data-skills="html css javascript bootstrap rest-apis ui-ux git github">
+                        <button class="project-art meter-art" type="button" aria-label="View Smart Metering Dashboard details">
+                            <span class="meter-label">ENERGY / LIVE</span>
+                            <div class="meter-display"><span>82.4</span><small>kWh</small></div>
+                            <div class="meter-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                        </button>
+                        <div class="project-info">
+                            <p class="project-type">WEB APPLICATION</p>
+                            <h3>Smart Metering Dashboard</h3>
+                            <p>A web dashboard for viewing smart-meter readings and energy use.</p>
+                            <ul class="tag-list"><li>JavaScript</li><li>Bootstrap</li><li>REST APIs</li><li>UI/UX</li></ul>
+                            <button class="project-details-button" type="button">View project details <span aria-hidden="true">↗</span></button>
+                        </div>
+                    </article>
+                    <article class="project-card" data-skills="flutter dart android ios node.js rest-apis git github">
+                        <button class="project-art mobile-art" type="button" aria-label="View Flutter Mobile Apps details">
+                            <span class="phone-shape"><i></i><b></b><em></em><em></em><em></em><em></em></span>
+                            <span class="mobile-caption">BUILT FOR ON THE GO</span>
+                        </button>
+                        <div class="project-info">
+                            <p class="project-type">CROSS-PLATFORM MOBILE</p>
+                            <h3>Flutter Mobile Apps</h3>
+                            <p>Flutter app interfaces for Android and iOS, connected to backend APIs.</p>
+                            <ul class="tag-list"><li>Flutter</li><li>Dart</li><li>Node.js</li><li>API integration</li></ul>
+                            <button class="project-details-button" type="button">View project details <span aria-hidden="true">↗</span></button>
+                        </div>
+                    </article>
+                </div>
+                <p class="project-note">Project details are available on request.</p>
+            </div>
+        </section>
+
+        <section id="experience" class="section-shell bg-white text-black dark:bg-black dark:text-white">
+            <div class="lego-field" aria-hidden="true">
+                <span class="lego-brick lego-brick-red"></span>
+                <span class="lego-brick lego-brick-blue"></span>
+                <span class="lego-brick lego-brick-yellow"></span>
+                <span class="lego-brick lego-brick-white"></span>
+            </div>
+            <div class="section-inner">
+                <div class="section-heading">
+                    <p class="eyebrow">04 / EXPERIENCE &amp; EDUCATION</p>
+                    <h2>Experience and education</h2>
+                </div>
+                <div class="timeline">
+                    <article class="timeline-item">
+                        <details class="experience-details" open>
+                            <summary>
+                                <span class="timeline-meta"><span>INTERNSHIP</span><span>Frontend Web Developer</span></span>
+                                <span class="timeline-summary"><span class="timeline-title">MEMMCOL</span><span class="experience-toggle">Hide details</span></span>
+                            </summary>
+                            <div class="timeline-detail">
+                            <ul>
+                                <li>Developed responsive web interfaces with HTML, CSS, JavaScript, and Bootstrap.</li>
+                                <li>Integrated frontend features with backend APIs for smart metering systems.</li>
+                                <li>Improved the usability and visual design of internal dashboards.</li>
+                                <li>Used GitHub for version control and team collaboration.</li>
+                            </ul>
+                            </div>
+                        </details>
+                    </article>
+                    <article class="timeline-item">
+                        <details class="experience-details">
+                            <summary>
+                                <span class="timeline-meta"><span>INTERNSHIP</span><span>Frontend &amp; Mobile Developer</span></span>
+                                <span class="timeline-summary"><span class="timeline-title">EPAIL NIGERIA</span><span class="experience-toggle">Show details</span></span>
+                            </summary>
+                            <div class="timeline-detail">
+                            <ul>
+                                <li>Developed Flutter mobile applications for Android and iOS.</li>
+                                <li>Integrated Node.js APIs to support backend functionality.</li>
+                                <li>Debugged and optimized application performance.</li>
+                                <li>Collaborated in an agile development environment using GitHub.</li>
+                            </ul>
+                            </div>
+                        </details>
+                    </article>
+                    <article class="timeline-item education-item">
+                        <details class="experience-details">
+                            <summary>
+                                <span class="timeline-meta"><span>UNDERGRADUATE</span><span>400 Level</span></span>
+                                <span class="timeline-summary"><span class="timeline-title">Christopher University</span><span class="experience-toggle">Show details</span></span>
+                            </summary>
+                            <div class="timeline-detail">
+                                <p>B.Sc. Computer Science</p>
+                                <p class="student-id">UNICHRIS/042201001</p>
+                            </div>
+                        </details>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section-shell contact-section bg-neutral-100 text-black dark:bg-neutral-950 dark:text-white">
+            <div class="lego-field" aria-hidden="true">
+                <span class="lego-brick lego-brick-red"></span>
+                <span class="lego-brick lego-brick-blue"></span>
+                <span class="lego-brick lego-brick-yellow"></span>
+                <span class="lego-brick lego-brick-white"></span>
+            </div>
+            <div class="section-inner">
+                <div class="section-heading">
+                    <p class="eyebrow">05 / GET IN TOUCH</p>
+                    <h2>Have a project in mind?</h2>
+                    <p class="contact-intro">I’m open to frontend and mobile development opportunities, internships, and collaborative projects.</p>
+                </div>
+                <div class="contact-grid">
+                    <article class="contact-card">
+                        <span class="contact-label">EMAIL</span>
+                        <a class="contact-value" href="mailto:oluomodarataiwo@gmail.com">oluomodarataiwo@gmail.com <span aria-hidden="true">↗</span></a>
+                        <button class="copy-button" type="button" data-copy="oluomodarataiwo@gmail.com" aria-label="Copy email address">Copy email</button>
+                    </article>
+                    <article class="contact-card">
+                        <span class="contact-label">PHONE</span>
+                        <a class="contact-value" href="tel:+2349031415386">+234 903 141 5386 <span aria-hidden="true">↗</span></a>
+                        <button class="copy-button" type="button" data-copy="+2349031415386" aria-label="Copy phone number">Copy number</button>
+                    </article>
+                </div>
+                <p class="social-note">Based in Lagos, Nigeria.</p>
+                <footer class="site-footer">
+                    <a href="#home" aria-label="Return to the top of the page">Taiwo.dev</a>
+                    <span>© <span id="current-year"></span> Olu-Omodara Taiwo Ayomide</span>
+                    <a href="#home">Back to top ↑</a>
+                </footer>
+            </div>
+        </section>
+    </main>
+    <dialog class="project-dialog" aria-labelledby="dialog-title">
+        <form method="dialog" class="dialog-close-form">
+            <button class="dialog-close" aria-label="Close project details" autofocus>×</button>
+        </form>
+        <p class="project-type" id="dialog-type"></p>
+        <h2 id="dialog-title"></h2>
+        <p class="dialog-description"></p>
+        <div class="dialog-stack"></div>
+        <p class="dialog-footnote">For project links or a live demo, get in touch.</p>
+        <a class="text-link dialog-contact" href="mailto:oluomodarataiwo@gmail.com">Ask me about this project <span aria-hidden="true">↗</span></a>
+    </dialog>
+</body>
+</html>
