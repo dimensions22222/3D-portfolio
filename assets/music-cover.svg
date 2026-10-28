@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none">
+  <defs>
+    <linearGradient id="background" x1="20" y1="14" x2="238" y2="250" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#172a35"/>
+      <stop offset="1" stop-color="#080c11"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="36" y1="36" x2="221" y2="220" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8de5cc"/>
+      <stop offset=".5" stop-color="#73a9c2"/>
+      <stop offset="1" stop-color="#b39bf4"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="matrix(0 100 -100 0 128 128)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#79d9c6" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#79d9c6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="256" height="256" rx="36" fill="url(#background)"/>
+  <circle cx="128" cy="128" r="100" fill="url(#glow)"/>
+  <g stroke="url(#ring)" stroke-opacity=".72">
+    <circle cx="128" cy="128" r="82"/>
+    <circle cx="128" cy="128" r="65"/>
+    <circle cx="128" cy="128" r="48"/>
+    <path d="M34 128h188M128 34v188M62 62l132 132m0-132L62 194"/>
+  </g>
+  <path d="M145 70v88.5a20 20 0 1 1-12-18.3V94l59-12v63.5a20 20 0 1 1-12-18.3V70l-35 7.1V70Z" fill="#d8fff1"/>
+  <circle cx="128" cy="128" r="4" fill="#8de5cc"/>
+</svg>

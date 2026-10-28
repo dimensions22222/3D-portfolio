@@ -17,7 +17,9 @@
         }
     </script>
     <link rel="stylesheet" href="site.css">
+    <link rel="stylesheet" href="music-player.css">
     <script src="site.js" defer></script>
+    <script src="music-player.js" defer></script>
     <script type="module" src="hero-3d.js"></script>
 </head>
 <body>
@@ -66,15 +68,19 @@
                         </p>
                         <a class="primary-link inline-flex items-center gap-3" href="#projects">Explore my work <span aria-hidden="true">↘</span></a>
                     </div>
-                    <p class="hero-location mt-14 text-xs font-bold tracking-[0.2em] uppercase text-neutral-500">Lagos, Nigeria <span class="mx-3">/</span> Computer Science Undergraduate</p>
+                    <p class="hero-location mt-14 text-xs font-bold tracking-[0.2em] uppercase text-neutral-500">
+                        <span class="hero-location-item">Lagos, Nigeria</span>
+                        <span class="hero-location-divider mx-3" aria-hidden="true">/</span>
+                        <span class="hero-location-item">Computer Science Undergraduate</span>
+                    </p>
                 </div>
-                <figure class="hero-visual" aria-label="Three-dimensional books and mugs model">
+                <figure class="hero-visual" aria-label="Three-dimensional marble bust model">
                     <div class="hero-3d-stage">
                         <div class="hero-3d-fallback" aria-hidden="true">
-                            <span class="fallback-book fallback-book-one"></span>
-                            <span class="fallback-book fallback-book-two"></span>
-                            <span class="fallback-book fallback-book-three"></span>
-                            <span class="fallback-mug"></span>
+                            <span class="fallback-bust-head"></span>
+                            <span class="fallback-bust-neck"></span>
+                            <span class="fallback-bust-shoulders"></span>
+                            <span class="fallback-bust-plinth"></span>
                         </div>
                         <canvas class="hero-3d-canvas" aria-hidden="true"></canvas>
                     </div>
@@ -191,27 +197,39 @@
                 <div class="project-grid">
                     <article class="project-card" data-skills="html css javascript bootstrap rest-apis ui-ux git github">
                         <button class="project-art meter-art" type="button" aria-label="View Smart Metering Dashboard details">
-                            <span class="meter-label">ENERGY / LIVE</span>
+                            <span class="meter-label">ENERGY OVERVIEW <span class="meter-live"><i></i> DEMO PREVIEW</span></span>
                             <div class="meter-display"><span>82.4</span><small>kWh</small></div>
                             <div class="meter-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                            <span class="meter-chart-label">USAGE THIS WEEK <span>MON — SUN</span></span>
+                            <span class="meter-axis" aria-hidden="true"><i>100</i><i>50</i><i>0</i></span>
                         </button>
                         <div class="project-info">
                             <p class="project-type">WEB APPLICATION</p>
                             <h3>Smart Metering Dashboard</h3>
                             <p>A web dashboard for viewing smart-meter readings and energy use.</p>
+                            <ul class="project-highlights" aria-label="Project features">
+                                <li>Meter readings</li>
+                                <li>Usage insights</li>
+                                <li>Responsive dashboard</li>
+                            </ul>
                             <ul class="tag-list"><li>JavaScript</li><li>Bootstrap</li><li>REST APIs</li><li>UI/UX</li></ul>
                             <button class="project-details-button" type="button">View project details <span aria-hidden="true">↗</span></button>
                         </div>
                     </article>
                     <article class="project-card" data-skills="flutter dart android ios node.js rest-apis git github">
                         <button class="project-art mobile-art" type="button" aria-label="View Flutter Mobile Apps details">
-                            <span class="phone-shape"><i></i><b></b><em></em><em></em><em></em><em></em></span>
-                            <span class="mobile-caption">BUILT FOR ON THE GO</span>
+                            <span class="phone-shape"><i></i><b></b><em></em><em></em><em></em><em></em><strong></strong><small>Home</small></span>
+                            <span class="mobile-caption">BUILT FOR ON THE GO <span>ANDROID <i></i> IOS</span></span>
                         </button>
                         <div class="project-info">
                             <p class="project-type">CROSS-PLATFORM MOBILE</p>
                             <h3>Flutter Mobile Apps</h3>
                             <p>Flutter app interfaces for Android and iOS, connected to backend APIs.</p>
+                            <ul class="project-highlights" aria-label="Project features">
+                                <li>Cross-platform UI</li>
+                                <li>API-connected</li>
+                                <li>Touch-first layouts</li>
+                            </ul>
                             <ul class="tag-list"><li>Flutter</li><li>Dart</li><li>Node.js</li><li>API integration</li></ul>
                             <button class="project-details-button" type="button">View project details <span aria-hidden="true">↗</span></button>
                         </div>
@@ -308,6 +326,12 @@
                     </article>
                 </div>
                 <p class="social-note">Based in Lagos, Nigeria.</p>
+                <div class="contact-icebreaker">
+                    <button class="icebreaker-button" type="button" aria-controls="dev-joke" aria-label="Tell me a developer joke">
+                        <span aria-hidden="true">✳</span> Need an icebreaker? Get a dev joke
+                    </button>
+                    <p class="dev-joke" id="dev-joke" aria-live="polite" aria-atomic="true"></p>
+                </div>
                 <footer class="site-footer">
                     <a href="#home" aria-label="Return to the top of the page">Taiwo.dev</a>
                     <span>© <span id="current-year"></span> Olu-Omodara Taiwo Ayomide</span>
@@ -316,6 +340,61 @@
             </div>
         </section>
     </main>
+    <aside class="music-player" aria-label="Portfolio music player" data-collapsed="false">
+        <button class="music-player__collapsed-toggle" type="button" aria-label="Open music player" aria-expanded="false">
+            <img src="assets/music-cover.svg" alt="" width="44" height="44">
+            <span class="music-player__collapsed-note" aria-hidden="true">♫</span>
+        </button>
+        <div class="music-player__panel">
+            <div class="music-player__topline">
+                <span class="music-player__eyebrow"><i aria-hidden="true"></i> NOW PLAYING</span>
+                <button class="music-player__collapse" type="button" aria-label="Collapse music player" aria-expanded="true">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>
+                </button>
+            </div>
+            <div class="music-player__track">
+                <img class="music-player__cover" src="assets/music-cover.svg" alt="Abstract neon music cover" width="64" height="64">
+                <div class="music-player__metadata" aria-live="polite">
+                    <p class="music-player__title">Your soundtrack</p>
+                    <p class="music-player__artist">Add tracks from public/music</p>
+                </div>
+                <span class="music-player__equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            </div>
+            <div class="music-player__timeline">
+                <label class="music-player__sr-only" for="music-seek">Seek through track</label>
+                <input class="music-player__seek" id="music-seek" type="range" min="0" max="100" step="0.1" value="0" aria-valuetext="0:00 of 0:00" disabled>
+                <div class="music-player__times" aria-hidden="true"><span class="music-player__elapsed">0:00</span><span class="music-player__duration">0:00</span></div>
+            </div>
+            <div class="music-player__controls">
+                <button class="music-player__mode music-player__shuffle" type="button" aria-label="Enable shuffle" aria-pressed="false" disabled>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M4 4l5 5m4 4 8 8"/></svg>
+                </button>
+                <button class="music-player__skip music-player__previous" type="button" aria-label="Previous track" disabled>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 6l-9 6 9 6z"/></svg>
+                </button>
+                <button class="music-player__play" type="button" aria-label="Play" disabled>
+                    <svg class="music-player__play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 12 7-12 7z"/></svg>
+                    <svg class="music-player__pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM15 5h4v14h-4z"/></svg>
+                </button>
+                <button class="music-player__skip music-player__next" type="button" aria-label="Next track" disabled>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 6l9 6-9 6z"/></svg>
+                </button>
+                <button class="music-player__mode music-player__repeat" type="button" aria-label="Repeat off" aria-pressed="false" disabled>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m17 2 4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4m14-1v2a3 3 0 0 1-3 3H3"/></svg>
+                    <span class="music-player__repeat-one" aria-hidden="true">1</span>
+                </button>
+            </div>
+            <div class="music-player__bottom">
+                <p class="music-player__status" role="status" aria-live="polite">Add audio files and tracks to the playlist to get started.</p>
+                <label class="music-player__volume-control">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4zM15.5 8.5a5 5 0 0 1 0 7m3-10a9 9 0 0 1 0 13"/></svg>
+                    <span class="music-player__sr-only">Volume</span>
+                    <input class="music-player__volume" type="range" min="0" max="1" step="0.01" value="0.7">
+                </label>
+            </div>
+            <audio class="music-player__audio" preload="metadata"></audio>
+        </div>
+    </aside>
     <dialog class="project-dialog" aria-labelledby="dialog-title">
         <form method="dialog" class="dialog-close-form">
             <button class="dialog-close" aria-label="Close project details" autofocus>×</button>

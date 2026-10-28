@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 const stage = document.querySelector(".hero-3d-stage");
 const canvas = document.querySelector(".hero-3d-canvas");
@@ -105,20 +105,10 @@ function initializeHeroScene() {
     }
 
     try {
-        const loader = new OBJLoader();
-        const bookMaterials = [
-            new THREE.MeshStandardMaterial({ color: 0x667d88, roughness: 0.76 }),
-            new THREE.MeshStandardMaterial({ color: 0xb8a88f, roughness: 0.82 }),
-            new THREE.MeshStandardMaterial({ color: 0x415761, roughness: 0.72 }),
-            new THREE.MeshStandardMaterial({ color: 0x879a98, roughness: 0.8 })
-        ];
-        const detailMaterial = new THREE.MeshStandardMaterial({ color: 0xc3b89f, roughness: 0.56 });
-        let bookIndex = 0;
-
+        const loader = new GLTFLoader();
         loader.load(
-            new URL("./3D_files_textures/books_and_mugs.obj", import.meta.url).href,
-            (model) => {
-                model.rotation.x = -Math.PI / 2;
+            new URL("./assets/marble-bust.glb", import.meta.url).href,
+            ({ scene: model }) => {
                 model.updateMatrixWorld(true);
 
                 const bounds = new THREE.Box3().setFromObject(model);
@@ -133,9 +123,6 @@ function initializeHeroScene() {
                         return;
                     }
 
-                    child.material = child.name.startsWith("Box")
-                        ? bookMaterials[bookIndex++ % bookMaterials.length]
-                        : detailMaterial;
                     child.castShadow = false;
                     child.receiveShadow = false;
                 });

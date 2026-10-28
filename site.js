@@ -200,6 +200,8 @@
         const description = card.querySelector(".project-info > p:not(.project-type)")?.textContent.trim() || "";
         const technologies = [...card.querySelectorAll(".project-info > .tag-list li")]
             .map((item) => item.textContent.trim());
+        const features = [...card.querySelectorAll(".project-highlights li")]
+            .map((item) => item.textContent.trim());
 
         projectDialog.querySelector("#dialog-type").textContent =
             card.querySelector(".project-type")?.textContent.trim() || "PROJECT";
@@ -207,19 +209,25 @@
         projectDialog.querySelector(".dialog-description").textContent = description;
         const stack = projectDialog.querySelector(".dialog-stack");
         stack.replaceChildren();
-        if (technologies.length) {
+        const appendDialogList = (labelText, className, items) => {
+            if (!items.length) {
+                return;
+            }
+
             const label = document.createElement("p");
             label.className = "filter-label";
-            label.textContent = "TECHNOLOGIES";
+            label.textContent = labelText;
             const list = document.createElement("ul");
-            list.className = "tag-list";
-            technologies.forEach((technology) => {
+            list.className = className;
+            items.forEach((itemText) => {
                 const item = document.createElement("li");
-                item.textContent = technology;
+                item.textContent = itemText;
                 list.append(item);
             });
             stack.append(label, list);
-        }
+        };
+        appendDialogList("PROJECT FEATURES", "dialog-features", features);
+        appendDialogList("TECHNOLOGIES", "tag-list", technologies);
 
         if (typeof projectDialog.showModal === "function") {
             projectDialog.showModal();
@@ -303,6 +311,31 @@
                 ? (value.includes("@") ? "Email address copied." : "Phone number copied.")
                 : `Copy unavailable. ${value}`);
         });
+    });
+
+    const icebreakerButton = document.querySelector(".icebreaker-button");
+    const jokeOutput = document.querySelector("#dev-joke");
+    const developerJokes = [
+        "Why did the developer go broke? They used up all their cache.",
+        "I told a CSS joke, but it didn’t land. Nobody understood the position.",
+        "Why did the function need a therapist? Too many unresolved promises.",
+        "I have a joke about UDP... not sure you’ll get it."
+    ];
+    let lastJokeIndex = -1;
+
+    icebreakerButton?.addEventListener("click", () => {
+        if (!jokeOutput) {
+            return;
+        }
+
+        let jokeIndex = Math.floor(Math.random() * developerJokes.length);
+        if (jokeIndex === lastJokeIndex) {
+            jokeIndex = (jokeIndex + 1) % developerJokes.length;
+        }
+
+        lastJokeIndex = jokeIndex;
+        jokeOutput.textContent = developerJokes[jokeIndex];
+        jokeOutput.classList.add("is-visible");
     });
 
     function updateReadingProgress() {
