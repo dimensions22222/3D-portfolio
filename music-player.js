@@ -4,7 +4,6 @@
     // A track may also include cover: "assets/my-album-cover.jpg".
     const PLAYLIST = [
         {
-            title: "BOW BOW BOW X MONSTER (Full Remix)",
             artist: "Local MP3",
             src: "\u058D.mp3"
         }
@@ -31,6 +30,7 @@
     const expandButton = player?.querySelector(".music-player__collapsed-toggle");
     const panel = player?.querySelector(".music-player__panel");
     const mobileLayout = window.matchMedia("(max-width: 600px)");
+    const hoverLayout = window.matchMedia("(hover: hover) and (pointer: fine)");
 
     if (!player || !audio || !title || !artist || !seek || !volume || !elapsed || !duration || !status
         || !playButton || !previousButton || !nextButton || !shuffleButton || !repeatButton
@@ -57,6 +57,15 @@
     function setStatus(message, state = "info") {
         status.textContent = message;
         status.dataset.state = state;
+    }
+
+    function getTrackName(track) {
+        try {
+            const filename = decodeURIComponent(new URL(track.src, document.baseURI).pathname.split("/").pop() || "");
+            return filename.replace(/\.[^.]+$/, "") || "Audio track";
+        } catch {
+            return track.src.split(/[\\/]/).pop()?.replace(/\.[^.]+$/, "") || "Audio track";
+        }
     }
 
     function updateProgress() {
@@ -95,10 +104,11 @@
 
     function updateArtwork(track) {
         const cover = track.cover || DEFAULT_COVER;
+        const trackName = getTrackName(track);
         coverImages.forEach((image) => {
             image.dataset.fallbackApplied = "false";
             image.src = cover;
-            image.alt = image.classList.contains("music-player__cover") ? `Cover art for ${track.title}` : "";
+            image.alt = image.classList.contains("music-player__cover") ? `Cover art for ${trackName}` : "";
         });
     }
 
@@ -115,10 +125,11 @@
 
         audio.pause();
         currentIndex = index;
-        title.textContent = track.title;
+        const trackName = getTrackName(track);
+        title.textContent = trackName;
         artist.textContent = track.artist;
         updateArtwork(track);
-        setStatus(`Ready to play: ${track.title}.`);
+        setStatus(`Ready to play: ${trackName}.`);
         audio.removeAttribute("src");
         audio.load();
 
@@ -126,8 +137,8 @@
             audio.src = new URL(track.src, document.baseURI).href;
             audio.load();
         } catch (error) {
-            console.error(`Could not load music track "${track.title}".`, error);
-            setStatus(`Could not load "${track.title}". Check its file path.`, "error");
+            console.error(`Could not load music track "${trackName}".`, error);
+            setStatus(`Could not load "${trackName}". Check its file path.`, "error");
         }
 
         updateProgress();
@@ -135,8 +146,12 @@
 
         if (autoplay) {
             audio.play().catch((error) => {
-                console.error(`Playback could not start for "${track.title}".`, error);
-                setStatus(`Could not play "${track.title}". Check the file and audio format.`, "error");
+                if (error.name === "NotAllowedError") {
+                    setStatus("Autoplay was blocked. Allow sound for this site in your browser settings, then press Play.", "error");
+                } else {
+                    console.error(`Playback could not start for "${trackName}".`, error);
+                    setStatus(`Could not play "${trackName}". Check the file and audio format.`, "error");
+                }
                 updateControls();
             });
         }
@@ -197,21 +212,23 @@
         if (audio.paused) {
             try {
                 await audio.play();
-                setStatus(`Playing: ${PLAYLIST[currentIndex].title}.`);
+                setStatus(`Playing: ${getTrackName(PLAYLIST[currentIndex])}.`);
             } catch (error) {
-                console.error(`Playback could not start for "${PLAYLIST[currentIndex].title}".`, error);
-                setStatus(`Could not play "${PLAYLIST[currentIndex].title}". Check the file and audio format.`, "error");
+                const trackName = getTrackName(PLAYLIST[currentIndex]);
+                console.error(`Playback could not start for "${trackName}".`, error);
+                setStatus(`Could not play "${trackName}". Check the file and audio format.`, "error");
             }
         } else {
             audio.pause();
-            setStatus(`Paused: ${PLAYLIST[currentIndex].title}.`);
+            setStatus(`Paused: ${getTrackName(PLAYLIST[currentIndex])}.`);
         }
         updateControls();
     }
 
     function toggleCollapsed(collapsed) {
         player.dataset.collapsed = String(collapsed);
-        panel.hidden = collapsed;
+        panel.inert = collapsed;
+        panel.setAttribute("aria-hidden", String(collapsed));
         collapseButton.setAttribute("aria-expanded", String(!collapsed));
         expandButton.setAttribute("aria-expanded", String(!collapsed));
         expandButton.setAttribute("aria-label", collapsed ? "Open music player" : "Music player is open");
@@ -259,7 +276,26 @@
         toggleCollapsed(false);
         collapseButton.focus();
     });
-    mobileLayout.addEventListener("change", (event) => toggleCollapsed(event.matches));
+    const updateResponsiveCollapsedState = () => {
+        toggleCollapsed(mobileLayout.matches || hoverLayout.matches);
+    };
+    mobileLayout.addEventListener("change", updateResponsiveCollapsedState);
+    hoverLayout.addEventListener("change", updateResponsiveCollapsedState);
+    player.addEventListener("pointerenter", () => {
+        if (hoverLayout.matches && !mobileLayout.matches) {
+            toggleCollapsed(false);
+        }
+    });
+    player.addEventListener("pointerleave", () => {
+        if (!hoverLayout.matches || mobileLayout.matches || player.dataset.collapsed === "true") {
+            return;
+        }
+
+        if (panel.contains(document.activeElement)) {
+            expandButton.focus();
+        }
+        toggleCollapsed(true);
+    });
 
     coverImages.forEach((image) => {
         image.addEventListener("error", () => {
@@ -286,7 +322,7 @@
         if (repeatMode === 2) {
             audio.currentTime = 0;
             audio.play().catch((error) => {
-                console.error(`Track "${PLAYLIST[currentIndex]?.title}" could not repeat.`, error);
+                console.error(`Track "${getTrackName(PLAYLIST[currentIndex])}" could not repeat.`, error);
                 setStatus("The track could not be repeated.", "error");
                 updateControls();
             });
@@ -304,15 +340,16 @@
         const detail = errorCode === 4
             ? "format is unsupported"
             : "file could not be found or loaded";
-        console.error(`Music track "${track.title}" failed to load: ${detail}.`, audio.error);
-        setStatus(`Could not load "${track.title}": ${detail}. Check its file path and format.`, "error");
+        const trackName = getTrackName(track);
+        console.error(`Music track "${trackName}" failed to load: ${detail}.`, audio.error);
+        setStatus(`Could not load "${trackName}": ${detail}. Check its file path and format.`, "error");
         updateControls();
     });
 
     updateVolume();
-    toggleCollapsed(mobileLayout.matches);
+    toggleCollapsed(mobileLayout.matches || hoverLayout.matches);
     if (PLAYLIST.length) {
-        selectTrack(0, false, false);
+        selectTrack(0, true, false);
     } else {
         setStatus("Add your music files and playlist entries to start listening.");
         updateControls();

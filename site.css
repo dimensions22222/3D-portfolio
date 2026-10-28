@@ -2469,6 +2469,26 @@ body::before,
     color: #c1cbd4;
 }
 
+/* The canvas is transparent except for the cursor's fluid trail. Difference
+   blending lets the white dye invert the content beneath it across the site
+   without changing the layout or intercepting controls. */
+.fluid-cursor-canvas {
+    position: fixed;
+    z-index: 80;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    mix-blend-mode: difference;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fluid-cursor-canvas {
+        display: none;
+    }
+}
+
 .primary-link,
 .dark .primary-link {
     flex: none;
@@ -3976,5 +3996,108 @@ button:hover {
     .icebreaker-button span,
     .dev-joke {
         transition: none;
+    }
+}
+
+.about-object {
+    display: flex;
+    width: fit-content;
+    max-width: 100%;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 0;
+}
+
+.about-object__stage {
+    position: relative;
+    width: clamp(5.5rem, 12vw, 8rem);
+    aspect-ratio: 1;
+    flex: none;
+    overflow: hidden;
+    border: 1px solid var(--portfolio-line);
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 45%, #e2e8f01f, transparent 70%);
+}
+
+.dark .about-object__stage {
+    background: radial-gradient(circle at 50% 45%, #8de5cc12, transparent 70%);
+}
+
+.about-object__canvas,
+.about-object__fallback {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.about-object__canvas {
+    display: block;
+}
+
+.about-object__stage.has-renderer .about-object__fallback {
+    display: none;
+}
+
+.about-object__fallback {
+    display: grid;
+    place-items: center;
+}
+
+.about-object__fallback span {
+    position: relative;
+    width: 18%;
+    height: 58%;
+    border: 1px solid #c58f66;
+    border-radius: 0.35rem;
+    background: linear-gradient(90deg, #684831, #d4ae88 38%, #80573b 70%, #3b2d26);
+    box-shadow: 0 0.5rem 1.2rem #17212b30;
+    transform: rotate(12deg);
+}
+
+.about-object__fallback span::before {
+    position: absolute;
+    top: -13%;
+    left: 10%;
+    width: 80%;
+    height: 16%;
+    border: 1px solid #e4c4a4;
+    border-radius: 0.2rem;
+    background: linear-gradient(90deg, #82796e, #f3e8d4, #716b63);
+    content: "";
+}
+
+.about-object__caption {
+    display: grid;
+    gap: 0.15rem;
+}
+
+.about-object__eyebrow {
+    color: var(--portfolio-muted);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.about-object__name {
+    color: var(--portfolio-ink);
+    font-size: 0.9rem;
+    font-weight: 650;
+}
+
+.about-object__hint {
+    color: var(--portfolio-muted);
+    font-size: 0.72rem;
+}
+
+@media (max-width: 480px) {
+    .about-object {
+        gap: 0.8rem;
+        margin-top: 1.5rem;
+    }
+
+    .about-object__stage {
+        width: 5.25rem;
     }
 }
